@@ -26,9 +26,13 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
+                "clangd",
+                "cmake",
+                "gopls",
                 "lua_ls",
                 "rust_analyzer",
                 "tsserver",
+                "zls"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -49,6 +53,19 @@ return {
                                 }
                             }
                         }
+                    }
+                end,
+
+                ["clangd"] = function()
+                    require("lspconfig").clangd.setup {
+                        capabilities = capabilities,
+                        cmd = {
+                            "clangd",
+                            "--background-index",
+                            "--suggest-missing-includes",
+                            "--clang-tidy",
+                            "--header-insertion=iwyu",
+                        },
                     }
                 end,
             }

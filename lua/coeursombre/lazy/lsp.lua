@@ -37,9 +37,17 @@ return {
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
+                    }
+                end,
+
+                ["bufls"] = function()
+                    require("lspconfig").bufls.setup {
+                        capabilities = capabilities,
+                        cmd = { "bufls", "serve" },
+                        filetypes = { "proto" },
+                        root_dir = require("lspconfig.util").root_pattern("buf.work.yaml", "buf.gen.yaml", "buf.yaml", ".git"),
                     }
                 end,
 
@@ -66,7 +74,26 @@ return {
                             "--suggest-missing-includes",
                             "--clang-tidy",
                             "--header-insertion=iwyu",
+                            "--compile-commands-dir=.",
+                            "--query-driver=/usr/bin/clang++",
                         },
+                        filetypes = { "c", "cpp", "cc", "cxx", "objc", "objcpp", "cuda" },
+                    }
+                end,
+
+                ["rust_analyzer"] = function()
+                    require("lspconfig").rust_analyzer.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            ["rust-analyzer"] = {
+                                cargo = {
+                                    loadOutDirsFromCheck = true
+                                },
+                                procMacro = {
+                                    enable = true
+                                },
+                            }
+                        }
                     }
                 end,
             }

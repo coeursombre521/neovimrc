@@ -74,7 +74,6 @@ return {
                             "--suggest-missing-includes",
                             "--clang-tidy",
                             "--header-insertion=iwyu",
-                            "--compile-commands-dir=.",
                             "--query-driver=/usr/bin/clang++",
                         },
                         filetypes = { "c", "cpp", "cc", "cxx", "objc", "objcpp", "cuda" },

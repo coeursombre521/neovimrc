@@ -27,8 +27,8 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "bufls",
-                "clangd",
-                "cmake",
+                --"clangd",
+                --"cmake",
                 "gopls",
                 "lua_ls",
                 "rust_analyzer",
@@ -65,20 +65,16 @@ return {
                     }
                 end,
 
-                ["clangd"] = function()
-                    require("lspconfig").clangd.setup {
-                        capabilities = capabilities,
-                        cmd = {
-                            "clangd",
-                            "--background-index",
-                            "--suggest-missing-includes",
-                            "--clang-tidy",
-                            "--header-insertion=iwyu",
-                            "--query-driver=/usr/bin/clang++",
-                        },
-                        filetypes = { "c", "cpp", "cc", "cxx", "objc", "objcpp", "cuda" },
-                    }
-                end,
+                --["clangd"] = function()
+                --    require("lspconfig").clangd.setup {
+                --        capabilities = capabilities,
+                --        cmd = {
+                --            "clangd",
+                --            "--background-index",
+                --        },
+                --        filetypes = { "c", "cpp", "cc", "cxx", "objc", "objcpp", "cuda" },
+                --    }
+                --end,
 
                 ["rust_analyzer"] = function()
                     require("lspconfig").rust_analyzer.setup {

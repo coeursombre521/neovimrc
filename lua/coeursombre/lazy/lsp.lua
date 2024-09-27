@@ -12,7 +12,7 @@ return {
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
     },
-
+    enabled = false,
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -27,12 +27,11 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "bufls",
-                --"clangd",
-                --"cmake",
+                "clangd",
+                "cmake",
                 "gopls",
                 "lua_ls",
                 "rust_analyzer",
-                "tsserver",
                 "zls"
             },
             handlers = {
@@ -65,16 +64,16 @@ return {
                     }
                 end,
 
-                --["clangd"] = function()
-                --    require("lspconfig").clangd.setup {
-                --        capabilities = capabilities,
-                --        cmd = {
-                --            "clangd",
-                --            "--background-index",
-                --        },
-                --        filetypes = { "c", "cpp", "cc", "cxx", "objc", "objcpp", "cuda" },
-                --    }
-                --end,
+                ["clangd"] = function()
+                    require("lspconfig").clangd.setup {
+                        capabilities = capabilities,
+                        cmd = {
+                            "clangd",
+                            "--background-index",
+                        },
+                        filetypes = { "c", "cpp", "cc", "cxx", "objc", "objcpp", "cuda" },
+                    }
+                end,
 
                 ["rust_analyzer"] = function()
                     require("lspconfig").rust_analyzer.setup {
